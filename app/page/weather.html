@@ -1,0 +1,18 @@
+<div>
+  <div id="weather_currently">
+  <i class="web_icon wi {{ weather_now.icon | weatherIcon}} "></i>
+    {{ weather_now.temperature | fahrenheitToCelcius }}°
+    {{ weather_now.summary }}
+  </div>
+  <div id="weather_day_container">
+    <div class="weather_for_day" ng-repeat="day in weather.data">
+      <div>
+
+        <h5>{{ day.time | dayOfTheWeek }}</h5>
+      </div>
+      <i class="web_icon wi {{ day.icon | weatherIcon}} "></i><br>
+        <p class="dayMin">{{ day.temperatureMin | fahrenheitToCelcius }}°</p>
+        <p class="dayMax">{{ day.temperatureMax | fahrenheitToCelcius }}°</p>
+    </div>
+  </div>
+</div>

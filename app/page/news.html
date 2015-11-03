@@ -1,0 +1,15 @@
+<feed summary="false" url="http://www.rollingstone.com/news.rss" count="10"/><!-- summary false show all the content instad of a summary-->
+<script>
+$( document ).ready(function() {
+//show and hide news summary
+
+    $(document).on('click', 'a', function(event){
+
+event.preventDefault();
+
+      $('.media p').css("display", "none");
+
+    $(this).parent().parent().find('p').show();
+    });
+});
+</script>

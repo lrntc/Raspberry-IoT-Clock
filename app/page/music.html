@@ -1,0 +1,138 @@
+<!-- <i class="fa fa-play"></i>
+<i class="fa fa-volume-up"></i>
+<i class="fa fa-volume-down"></i>
+<i class="fa fa-volume-off"></i> -->
+<link href="jplayer/css/blue.monday/css/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+
+  var switch_to_stream = "stream_classic21";
+
+  function switchStream(switch_to_stream) {
+    switch (switch_to_stream) {
+      case "stream_nostalgie":
+      $("#jquery_jplayer_1").jPlayer("setMedia", stream_nostalgie);
+      break;
+      case "stream_arrow_rock":
+      $("#jquery_jplayer_1").jPlayer("setMedia", stream_arrow_rock);
+      break;
+      case "stream_classic21":
+      $("#jquery_jplayer_1").jPlayer("setMedia", stream_classic21);
+      break;
+      case "stream_studiobrussel":
+      $("#jquery_jplayer_1").jPlayer("setMedia", stream_studiobrussel);
+      break;
+      default:
+      $("#jquery_jplayer_1").jPlayer("setMedia", stream_classic21);
+      break;
+    }
+
+    $("#jquery_jplayer_1").jPlayer("play");
+  }
+
+  //Available streams
+
+  var stream_nostalgie = {
+    title: "Nostalgie",
+    mp3: "http://nostalgiewhatafeeling.ice.infomaniak.ch/nostalgiewhatafeeling-128.mp3"
+  },
+  ready = false;
+
+  var stream_arrow_rock = {
+    title: "Arrow Classic Rock",
+    mp3: "http://91.221.151.155:80/;stream/1"
+  },
+  ready = false;
+
+  var stream_classic21 = {
+    title: "Classic21",
+    mp3: "http://ice3.infomaniak.ch/classic21.mp3"
+  },
+  ready = false;
+
+  var stream_studiobrussel = {
+    title: "Studio Brussel",
+    mp3: "http://mp3.streampower.be/stubru-high.mp3"
+  },
+  ready = false;
+
+  $("#jquery_jplayer_1").jPlayer({
+    ready: function (event) {
+      ready = true;
+      $(this).jPlayer("play");
+    },
+    pause: function() {
+      $(this).jPlayer("clearMedia");
+    },
+    error: function(event) {
+      if(ready && event.jPlayer.error.type === $.jPlayer.error.URL_NOT_SET) {
+        // Setup the media stream again and play it.
+
+        switchStream(switch_to_stream);
+
+        // $(this).jPlayer("setMedia", stream).jPlayer("play");
+      }
+    },
+    swfPath: "../../dist/jplayer",
+    supplied: "mp3",
+    preload: "none",
+    wmode: "window",
+    useStateClassSkin: true,
+    autoBlur: false,
+    keyEnabled: true
+  });
+
+  $(".radio_list_thumb").on("click", function(){
+    switch_to_stream = $(this).attr("data-id");
+
+    $("#jquery_jplayer_1").jPlayer("pause");
+    $("#jquery_jplayer_1").jPlayer("clearMedia");
+
+    switchStream(switch_to_stream);
+
+  });
+
+});
+
+//]]>
+</script>
+<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+<div id="jp_container_1" class="jp-audio-stream" role="application" aria-label="media player">
+  <div class="jp-type-single">
+    <div class="jp-gui jp-interface">
+      <div class="jp-volume-controls">
+        <button class="jp-mute" role="button" tabindex="0">mute</button>
+        <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+        <div class="jp-volume-bar">
+          <div class="jp-volume-bar-value"></div>
+        </div>
+      </div>
+      <div class="jp-controls">
+        <button class="jp-play" role="button" tabindex="0">play</button>
+      </div>
+    </div>
+    <div class="jp-details">
+      <div class="jp-title" aria-label="title">&nbsp;</div>
+    </div>
+    <div class="jp-no-solution">
+      <span>Update Required</span>
+      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+    </div>
+  </div>
+</div>
+<div id="list_feed">
+  <div class="radio_list_item">
+    <img class="radio_list_thumb" draggable="false" data-id="stream_classic21" src="https://www.rtbf.be/radio/liveradio/rtbf/radios/classic21/img/visual-placeholder.png">
+  </div>
+  <div class="radio_list_item">
+    <img class="radio_list_thumb" draggable="false" data-id="stream_arrow_rock" src="http://www.arrow.nl/images/header/logo-arrow.gif">
+  </div>
+  <div class="radio_list_item">
+    <img class="radio_list_thumb" draggable="false" data-id="stream_studiobrussel" src="http://1.standaardcdn.be/Assets/Images_Upload/2013/08/22/36350932-0b2d-11e3-b4b0-0c0d485f36a6_web_scale_0.2054795_0.2054795__.jpg">
+  </div>
+  <div class="radio_list_item">
+    <img class="radio_list_thumb" draggable="false" data-id="stream_nostalgie" src="http://www.nostalgie.eu/content/design/images/_2014/logo2014.gif">
+  </div>
+</div>
